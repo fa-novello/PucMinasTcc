@@ -1,0 +1,34 @@
+﻿@model Clinica.Models.Especialidade
+
+@{
+    ViewBag.Title = "Excluir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir</h2>
+
+<h3>Confirma a exclusão desse registro?</h3>
+    <div>
+        <h4>Especialidade</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Descricao)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Excluir" class="btn btn-default" /> |
+                @Html.ActionLink("Cancelar", "Listar")
+            </div>
+        }
+    </div>

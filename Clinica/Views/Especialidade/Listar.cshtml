@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Clinica.Models.Especialidade>
+
+@{
+    ViewBag.Title = "Lista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de especialidades</h2>
+
+
+@using (Html.BeginForm("Listar", "Especialidade", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("~/Views/Shared/_Buscar.cshtml")
+}
+
+<p>
+    @Html.ActionLink("Incluir", "Incluir")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

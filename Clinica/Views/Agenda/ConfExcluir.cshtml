@@ -1,0 +1,65 @@
+﻿@model Clinica.Models.AgendaConfiguracao
+
+@{
+    ViewBag.Title = "ConfExcluir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excluir</h2>
+
+<h3>Confirma a exclusão desse registro?</h3>
+<div>
+    <h4>Configuracao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiaSemana)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaSemana)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LimiteConsultas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LimiteConsultas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TempoConsulta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TempoConsulta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HorarioInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HorarioInicio)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "ConfListar")
+        </div>
+    }
+</div>

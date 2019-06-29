@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Clinica.Models.Consulta>
+
+@{
+    ViewBag.Title = "HistoricoPaciente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Histórico do paciente</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Realizada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CIDId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Anotacoes)
+        </th>
+        <th>Exames</th>
+        <th>Medicamentos</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MedicoNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PacienteNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Realizada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CID.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anotacoes)
+            </td>
+            <td>
+                @if (item.ConsultaExame.Count > 0)
+                {
+                    foreach (var item2 in item.ConsultaExame)
+                    {
+                        <p>
+                            @item2.Exame.Descricao
+                        </p>
+                    }
+                }
+            </td>
+            <td>
+                @if (item.ConsultaMedicamento.Count > 0)
+                {
+
+                    foreach (var item2 in item.ConsultaMedicamento)
+                    {
+                        <p>
+                            @item2.Medicamento.FabricanteNome
+                        </p>
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+

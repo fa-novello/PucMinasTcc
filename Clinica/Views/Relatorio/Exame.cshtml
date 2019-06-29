@@ -1,0 +1,28 @@
+﻿@model Clinica.Models.Relatorio
+
+@{
+    ViewBag.Title = "Exame";
+    Layout = "_Relatorio.cshtml";
+}
+
+
+@foreach (var item in Model.ExameRelatorio)
+{
+    <dt>
+        @Html.DisplayNameFor(modelItem => item.Exame)
+    </dt>
+    <dd>
+        @Html.DisplayFor(modelItem => item.Exame)
+    </dd>
+    if (!string.IsNullOrEmpty(item.OrientacoesPrevias))
+    {
+        <dt>
+            @Html.DisplayNameFor(modelItem => item.OrientacoesPrevias)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelItem => item.OrientacoesPrevias)
+        </dd>
+    }
+    <dt><br /></dt>
+    <dd></dd>
+}

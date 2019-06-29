@@ -1,0 +1,97 @@
+﻿@model Clinica.Models.Relatorio
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Clínica</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <img src="~/Content/icone.png" class="navbar-brand" />
+                <label class="navbar-brand">Clínica</label>
+            </div>
+            <div class="navbar-brand">
+                <label>(12)3999-9999</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-print">
+        <div class="container">
+            <div>
+                <div style="display:inline-block;"><img src="~/Content/icone.png" height="50" /></div>
+                <div style="display:inline-block;">
+                    <div>Clínica</div>
+                    <div>(12)3999-9999</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container body-content">
+        <div>
+            <h2>@ViewBag.Title</h2>
+
+            <h4>Solicitação</h4>
+            <hr />
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Paciente)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Paciente)
+                </dd>
+                <dt><br /></dt>
+                <dd></dd>
+                <dt><br /></dt>
+                <dd></dd>
+
+                @RenderBody()
+
+
+                <dt><br /></dt>
+                <dd></dd>
+                <dt><br /></dt>
+                <dd></dd>
+
+                <dt class="hidden-print">
+                    @Html.DisplayNameFor(model => model.Medico)
+                </dt>
+
+                <dd class="text-center-print">
+                    @Html.DisplayFor(model => model.Medico)
+                </dd>
+
+                <dt class="hidden-print">
+                    @Html.DisplayNameFor(model => model.Especialidade)
+                </dt>
+
+                <dd class="text-center-print">
+                    @Html.DisplayFor(model => model.Especialidade)
+                </dd>
+            </dl>
+        </div>
+
+        <p class="hidden-print">
+            <a href="#" onClick="window.print(); return false">Imprimir</a> |
+            @Html.ActionLink("Voltar", "Detalhes", "Consulta", new { id = Model.ConsultaId }, new { name = "print" })
+        </p>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

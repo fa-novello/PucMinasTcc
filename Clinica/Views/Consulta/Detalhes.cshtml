@@ -1,0 +1,176 @@
+﻿@model Clinica.Models.Consulta
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Consulta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CIDId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CID.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MedicoNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PacienteNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Realizada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Realizada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Horario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Horario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Peso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Peso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Altura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Altura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Anotacoes)
+        </dt>
+
+        <dd>
+            @Html.TextAreaFor(model => model.Anotacoes, htmlAttributes: new { rows = 5, @class = "form-control", disabled = "disabled", @readonly = "readonly" })
+        </dd>
+    </dl>
+
+    <div>
+        <label>Exames solicitados</label>
+        @if (Model.ConsultaExame.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        Exame
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.ConsultaExame)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Exame.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Realizado)
+                    </td>
+                    <td>
+                        @if (!item.Realizado)
+                        {
+                            @Html.ActionLink("Excluir", "ExcluirExame", new { id = item.Id }) <label>|</label>
+                            @Html.ActionLink("Imprimir exame", "Exame", "Relatorio", new { consultaId = Model.Id, exameId = item.Id }, new { name = "print" })
+                        }else
+                        {
+                            @Html.ActionLink("Detalhes", "DetalheExame", new { idExameConsulta = item.Id })
+                        }
+                    </td>
+                </tr>
+                }
+            </table>
+        }
+        @Html.ActionLink("Incluir pedido de exame", "IncluirExame", new { id = Model.Id })
+        @if (Model.ConsultaExame.Count > 0)
+        {
+            <label>|</label>
+            @Html.ActionLink("Imprimir pedido", "Exame", "Relatorio", new { consultaId = Model.Id }, new { name = "print" })
+        }
+    </div>
+    <hr />
+    <br />
+    <div>
+        <label>Medicamentos prescritos</label>
+        @if (Model.ConsultaMedicamento.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        Medicamento
+                    </th>
+                    <th>
+                        Posologia
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.ConsultaMedicamento)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Medicamento.FabricanteNome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Posologia)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Excluir", "ExcluirMedicamento", new { id = item.Id }) |
+                            @Html.ActionLink("Imprimir prescrição individual", "Prescricao", "Relatorio", new { consultaId = Model.Id, medicamentoId = item.Id }, new { name = "print" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        @Html.ActionLink("Incluir medicamento", "IncluirMedicamento", new { id = Model.Id }) 
+        @if (Model.ConsultaMedicamento.Count > 0) {
+            <label>|</label>
+            @Html.ActionLink("Imprimir prescrição", "Prescricao", "Relatorio", new { consultaId = Model.Id }, new { name = "print" })
+        }
+    </div>
+    <br />
+
+</div>
+
+<p>
+    @Html.ActionLink("Editar consulta", "Atender", new { id = Model.Id })
+</p>
+<p>
+    @Html.ActionLink("Voltar", "Listar")
+</p>

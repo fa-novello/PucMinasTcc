@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Clinica.Models.Paciente>
+
+@{
+    ViewBag.Title = "Lista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista de pacientes</h2>
+
+@using (Html.BeginForm("Listar", "Paciente", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("~/Views/Shared/_Buscar.cshtml")
+}
+
+<p>
+    @Html.ActionLink("Incluir", "Incluir")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nascimento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PossuiConvenio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpresaConvenio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroCNS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nascimento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PossuiConvenio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpresaConvenio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroCNS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |
+                @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

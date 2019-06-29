@@ -1,0 +1,59 @@
+﻿@model Clinica.Models.Medicamento
+
+@{
+    ViewBag.Title = "Detalhes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Medicamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GenericoNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GenericoNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FabricanteNome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FabricanteNome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fabricante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fabricante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Indicacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Indicacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContraIndicacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContraIndicacao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Listar")
+</p>

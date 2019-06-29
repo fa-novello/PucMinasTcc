@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Clinica.Models.Consulta>
+
+@{
+    ViewBag.Title = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Consultas</h2>
+
+@using (Html.BeginForm("Listar", "Consulta", FormMethod.Get))
+{
+<div class="row" id="buscar">
+    <div class="col-md-6">
+        <div class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <p>
+                @Html.RadioButton("tipoFiltro", 0, true) Pendentes
+                @Html.RadioButton("tipoFiltro", 1) Todas
+                @Html.RadioButton("tipoFiltro", 2) Realizadas
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-horizontal">
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PacienteId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Realizada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Horario)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PacienteNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Realizada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Horario)
+            </td>
+            <td>
+                @Html.ActionLink("Atender", "Atender", new { id = item.Id }) |
+                @Html.ActionLink("Detalhes", "Detalhes", new { id = item.Id }) |
+                @Html.ActionLink("Histórico", "HistoricoPaciente", new { pacienteId = item.PacienteId })
+            </td>
+        </tr>
+    }
+
+</table>

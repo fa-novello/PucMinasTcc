@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Clinica.Models.AgendaConfiguracao>
+
+@{
+    ViewBag.Title = "Configuração agenda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Configuração de agenda</h2>
+
+<p>
+    @Html.ActionLink("Incluir", "ConfIncluir")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MedicoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaSemana)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LimiteConsultas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TempoConsulta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HorarioInicio)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Medico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaSemana)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LimiteConsultas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TempoConsulta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorarioInicio)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "ConfEditar", new { id = item.Id }) |
+                @Html.ActionLink("Excluir", "ConfExcluir", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

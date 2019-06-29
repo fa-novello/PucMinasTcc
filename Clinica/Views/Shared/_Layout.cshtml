@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Clínica</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="~/Content/icone.png" class="navbar-brand" />
+                @Html.ActionLink("Clínica", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <div class="navbar-brand hidden-xs">
+                <label>(12)3999-9999</label>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        @if (User.IsInRole("Paciente"))
+        {
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Exames</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Consultar resultado de exame", "ConsultarResultado", "Consulta", routeValues: new { pacienteId = User.Identity.Name }, htmlAttributes: new { id = "listarExameLink", CssClassPropertyAttribute = "btn btn-default" })</li>
+                </ul>
+            </div>
+        }
+
+        @if (User.IsInRole("Secretária"))
+        {
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Pacientes</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Listar", "Listar", "Paciente", routeValues: null, htmlAttributes: new { id = "listarPacienteLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                </ul>
+            </div>
+
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Agenda</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Listar", "Listar", "Agenda", routeValues: new { tipoFiltro = 0 }, htmlAttributes: new { id = "listarConsultaLink", CssClassPropertyAttribute = "btn btn-default dropdown-toggle" })</li>
+                </ul>
+            </div>
+
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Médicos</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Listar", "Listar", "Medico", routeValues: null, htmlAttributes: new { id = "listarMedicoLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                </ul>
+            </div>
+
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Colaboradores</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Listar", "Listar", "Colaborador", routeValues: null, htmlAttributes: new { id = "listarColaboradorLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                </ul>
+            </div>
+
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Padrão agenda</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Gerar agenda", "Gerar", "Agenda", routeValues: null, htmlAttributes: new { id = "incluirAgendaLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Listar", "ConfListar", "Agenda", routeValues: null, htmlAttributes: new { id = "listAgendaLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                </ul>
+            </div>
+        }
+
+        @if (User.IsInRole("Médico"))
+        {
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Consultas</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Listar", "Listar", "Consulta", routeValues: null, htmlAttributes: new { id = "listarConsultaLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                </ul>
+            </div>
+        }
+
+        @if (User.IsInRole("Médico") || User.IsInRole("Secretária"))
+        {
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Outros</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("CID", "Listar", "CID", routeValues: null, htmlAttributes: new { id = "listarCIDLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Medicamento", "Listar", "Medicamento", routeValues: null, htmlAttributes: new { id = "listarMedicamentoLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Especialidades", "Listar", "Especialidade", routeValues: null, htmlAttributes: new { id = "listarEspecialidadeLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                    <li>@Html.ActionLink("Exame", "Listar", "Exame", routeValues: null, htmlAttributes: new { id = "listarEspecialidadeLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                </ul>
+            </div>
+        }
+
+        @if (User.IsInRole("Laboratório") || User.IsInRole("Médico") || User.IsInRole("Secretária"))
+        {
+            <div class="dropdown navbar-nav">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" href="#">Exames</a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Incluir resultado", "ExamePendente", "Consulta", routeValues: null, htmlAttributes: new { id = "editarExamePendenteLink", CssClassPropertyAttribute = "dropdown-item" })</li>
+                </ul>
+            </div>
+        }
+    </div>
+
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <br />
+        <div class="container">
+            <a href="#" class="navbar-brand">Olá&ensp;@User.Identity.Name</a>
+        </div>
+    }
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Clínica</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

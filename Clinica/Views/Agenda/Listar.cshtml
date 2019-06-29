@@ -1,0 +1,135 @@
+﻿@model IEnumerable<Clinica.Models.AgendaViewModel>
+
+@{
+    ViewBag.Title = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string classe = "";
+}
+
+<h2>Agenda</h2>
+
+@using (Html.BeginForm("Listar", "Agenda", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+<div class="row" id="buscar">
+    <div class="col-md-6">
+        <div class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <p>
+                @Html.RadioButton("tipoFiltro", 0, true) Somente data atual
+            </p>
+            <p>
+                @Html.RadioButton("tipoFiltro", 1) Somente agenda livre
+            </p>
+            <p>
+                @Html.RadioButton("tipoFiltro", 2) Somente agenda não confirmada
+            </p>
+            <p>
+                @Html.RadioButton("tipoFiltro", 3) Consultar agendamentos anteriores
+            </p>
+            <p>
+                @Html.RadioButton("tipoFiltro", 4) Consultar próximos agendamentos
+            </p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.Label("Médico", "Médico", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("MedicoId", null, htmlAttributes: new { @class = "form-control", id = "medicoId" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-horizontal">
+            <input type="submit" value="Buscar" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    @*@Html.Partial("~/Views/Shared/_Buscar.cshtml")*@
+    }
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @foreach (var item in Model)
+    {
+        <h3>@item.Medico</h3>
+        @*@{var agenda = item.Agendas.FirstOrDefault(); }*@
+        <table class="table">
+            <tr>
+                <th>
+                    @*@Html.DisplayNameFor(model => agenda.Paciente)*@
+                    Paciente
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => agenda.Data)*@
+                    Data
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => agenda.Horario)*@
+                    Hora
+                </th>
+                <th>
+                    Telefone
+                </th>
+                <th>
+                    Convênio
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => agenda.Confirmada)*@
+                    Confirmada
+                </th>
+                <th>
+                    Consulta criada
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item2 in item.Agendas)
+            {
+                classe = "";
+                if (item2.PacienteId != null && item2.Data == DateTime.Now.Date && !item2.Confirmada && !item2.ConsultaCriada)
+                {
+                    classe = "alert-danger";
+                }
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.PacienteNome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.Data)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.Horario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.Telefone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.Convenio)
+                    </td>
+                    <td class=@classe>
+                        @Html.DisplayFor(modelItem => item2.Confirmada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item2.ConsultaCriada)
+                    </td>
+                    <td>
+                        @if (!(item2.ConsultaCriada))
+                        {
+                            @Html.ActionLink("Editar", "Editar", new { id = item2.Id })
+                            if (item2.PacienteNome != null)
+                            {
+                                <label>|</label>
+                                @Html.ActionLink("Criar consulta", "ConverterConsulta", new { id = item2.Id })
+                                <label>|</label>
+                                @Html.ActionLink("Cancelar agenda", "CancelarAgenda", new { id = item2.Id })
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    }
