@@ -259,6 +259,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\primeiro insert.sql" />
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
     <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
