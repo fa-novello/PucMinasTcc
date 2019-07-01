@@ -118,6 +118,7 @@ namespace Clinica.Controllers
         }
 
         // POST: Posts/Delete/5
+        [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmacaoExclusao(int id)
         {
